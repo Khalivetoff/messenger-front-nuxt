@@ -13,7 +13,7 @@ export class StatePromise<ResolveData = unknown, RejectData = unknown> {
         })
     }
 
-    public resolve(result: ResolveData): void {
+    public resolve(result?: ResolveData): void {
         if (this._isCompleted) {
             return;
         }
@@ -22,7 +22,7 @@ export class StatePromise<ResolveData = unknown, RejectData = unknown> {
         this.onComplete();
     }
 
-    public reject(reason: RejectData): void {
+    public reject(reason?: RejectData): void {
         if (this._isCompleted) {
             return;
         }
@@ -31,11 +31,11 @@ export class StatePromise<ResolveData = unknown, RejectData = unknown> {
         this.onComplete();
     }
 
-    public then(handler: (result: ResolveData) => unknown): void {
+    public then(handler: (result?: ResolveData) => unknown): void {
         this._isCompleted ? handler(this._result) : this._promise.then(handler);
     }
 
-    public catch(handler: (error: unknown) => unknown): void {
+    public catch(handler: (error?: unknown) => unknown): void {
         this._isCompleted ? handler(this._error) : this._promise.catch(handler);
     }
 
